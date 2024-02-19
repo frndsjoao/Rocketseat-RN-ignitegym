@@ -1,3 +1,4 @@
+import { useNavigation } from '@react-navigation/native'
 import { Center, Heading, Image, ScrollView, Text, VStack } from 'native-base'
 import React from 'react'
 import backgroundImg from '../assets/background.png'
@@ -6,11 +7,14 @@ import Button from '../components/Button'
 import Input from '../components/Input'
 
 export default function SignUp() {
+  const navigation = useNavigation()
+
   return (
     <ScrollView contentContainerStyle={{ flexGrow: 1 }} showsVerticalScrollIndicator={false}>
-      <VStack flex={1} bg="gray.700" px={10}>
+      <VStack flex={1} px={10}>
         <Image
           source={backgroundImg}
+          defaultSource={backgroundImg}
           alt='Pessoas treinando'
           resizeMode='contain'
           position="absolute"
@@ -44,7 +48,12 @@ export default function SignUp() {
           <Button title='Criar e acessar' />
         </Center>
 
-        <Button mt={32} title='Voltar para o login' variant="outline" />
+        <Button
+          mt={32}
+          title='Voltar para o login'
+          variant="outline"
+          onPress={() => navigation.goBack()}
+        />
 
       </VStack>
     </ScrollView>
