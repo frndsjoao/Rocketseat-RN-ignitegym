@@ -9,6 +9,9 @@ import Button from '../components/Button'
 import Input from '../components/Input'
 
 import { yupResolver } from '@hookform/resolvers/yup'
+import axios from 'axios'
+import { Alert } from 'react-native'
+import { api } from '../services/api'
 
 type FormData = yup.InferType<typeof signUpSchema>
 
@@ -25,8 +28,15 @@ export default function SignUp() {
   })
   const navigation = useNavigation()
 
-  function handleSignUp(data: FormData) {
-    console.log(data)
+  async function handleSignUp({ name, email, password }: FormData) {
+    try {
+      const response = await api.post('/users', { name, email, password })
+
+    } catch (err) {
+      if (axios.isAxiosError(err)) {
+        Alert.alert(err.response?.data.message)
+      }
+    }
   }
 
   return (
